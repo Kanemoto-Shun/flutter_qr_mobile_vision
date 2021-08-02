@@ -25,6 +25,7 @@ class QrCamera extends StatefulWidget {
     WidgetBuilder? offscreenBuilder,
     ErrorCallback? onError,
     this.formats,
+    this.size
   })  : notStartedBuilder = notStartedBuilder ?? _defaultNotStartedBuilder,
         offscreenBuilder = offscreenBuilder ?? notStartedBuilder ?? _defaultOffscreenBuilder,
         onError = onError ?? _defaultOnError,
@@ -37,6 +38,7 @@ class QrCamera extends StatefulWidget {
   final WidgetBuilder offscreenBuilder;
   final ErrorCallback onError;
   final List<BarcodeFormats>? formats;
+  final Size? size;
 
   @override
   QrCameraState createState() => QrCameraState();
@@ -74,6 +76,7 @@ class QrCameraState extends State<QrCamera> with WidgetsBindingObserver {
   Future<PreviewDetails>? _asyncInitOnce;
 
   Future<PreviewDetails> _asyncInit(num width, num height) async {
+    print("${Size(width.toDouble(), height.toDouble())}");
     var previewDetails = await QrMobileVision.start(
       width: width.toInt(),
       height: height.toInt(),
