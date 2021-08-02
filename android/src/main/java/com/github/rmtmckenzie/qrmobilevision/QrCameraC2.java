@@ -204,14 +204,19 @@ class QrCameraC2 implements QrCamera {
     static class Frame implements QrDetector.Frame {
         final Image image;
         final int firebaseOrientation;
+        final int width;
+        final int height;
 
-        Frame(Image image, int firebaseOrientation) {
+        Frame(Image image, int width, int height, int firebaseOrientation) {
             this.image = image;
             this.firebaseOrientation = firebaseOrientation;
+            this.width = width;
+            this.height = height;
         }
 
         @Override
         public InputImage toImage() {
+            Log.d("ImageSize", "Width:"+width+"Height:"+height);
             return InputImage.fromMediaImage(image, firebaseOrientation);
         }
 
@@ -238,7 +243,7 @@ class QrCameraC2 implements QrCamera {
                 try {
                     Image image = reader.acquireLatestImage();
                     if (image == null) return;
-                    latestFrame = new Frame(image, getFirebaseOrientation());
+                    latestFrame = new Frame(image, targetWidth, targetHeight, getFirebaseOrientation());
                     detector.detect(latestFrame);
                 } catch (Throwable t) {
                     t.printStackTrace();
