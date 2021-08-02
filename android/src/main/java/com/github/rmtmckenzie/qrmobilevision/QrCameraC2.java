@@ -3,6 +3,7 @@ package com.github.rmtmckenzie.qrmobilevision;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.ImageFormat;
+import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -216,8 +217,14 @@ class QrCameraC2 implements QrCamera {
 
         @Override
         public InputImage toImage() {
-            Log.d("ImageSize", "Width:"+width+"Height:"+height);
-            return InputImage.fromMediaImage(image, firebaseOrientation);
+            Rect rect = Rect.unflattenFromString("");
+            rect.top = 0;
+            rect.left = 0;
+            rect.right = image.getWidth();
+            rect.bottom = image.getWidth() * (width / height);
+            Image subImage = image;
+            subImage.setCropRect(rect);
+            return InputImage.fromMediaImage(subImage, firebaseOrientation);
         }
 
         @Override
