@@ -96,26 +96,26 @@ class QrCameraC2 implements QrCamera {
 
     @Override
     public void toggleLight() {
-//        if (manager != null && cameraId != null) {
-//            isLighting = !isLighting;
-//            try {
-//                manager.setTorchMode(cameraId, isLighting);
-//            } catch (CameraAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (manager != null && cameraId != null) {
+            isLighting = !isLighting;
+            try {
+                manager.setTorchMode(cameraId, isLighting);
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void lightOff() {
-//        if (manager != null && cameraId != null) {
-//            isLighting = false;
-//            try {
-//                manager.setTorchMode(cameraId, false);
-//            } catch (CameraAccessException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        if (manager != null && cameraId != null) {
+            isLighting = false;
+            try {
+                manager.setTorchMode(cameraId, false);
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
