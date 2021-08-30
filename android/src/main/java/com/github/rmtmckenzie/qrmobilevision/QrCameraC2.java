@@ -99,7 +99,9 @@ class QrCameraC2 implements QrCamera {
         if (manager != null && cameraId != null) {
             isLighting = !isLighting;
             try {
-                manager.setTorchMode(cameraId, isLighting);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    manager.setTorchMode(cameraId, isLighting);
+                }
             } catch (CameraAccessException e) {
                 e.printStackTrace();
             }
@@ -111,7 +113,9 @@ class QrCameraC2 implements QrCamera {
         if (manager != null && cameraId != null) {
             isLighting = false;
             try {
-                manager.setTorchMode(cameraId, false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    manager.setTorchMode(cameraId, false);
+                }
             } catch (CameraAccessException e) {
                 e.printStackTrace();
             }
