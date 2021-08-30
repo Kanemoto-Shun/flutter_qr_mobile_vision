@@ -6,4 +6,6 @@ interface QrCamera {
     int getOrientation();
     int getWidth();
     int getHeight();
+    void toggleLight();
+    void lightOff();
 }

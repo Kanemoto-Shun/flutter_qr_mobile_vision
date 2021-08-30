@@ -68,6 +68,10 @@ class QrCameraC2 implements QrCamera {
     private CameraCharacteristics cameraCharacteristics;
     private Frame latestFrame;
 
+    private CameraManager manager = null;
+    private String cameraId = null;
+    private boolean isLighting = false;
+
     QrCameraC2(int width, int height, SurfaceTexture texture, Context context, QrDetector detector) {
         this.targetWidth = width;
         this.targetHeight = height;
@@ -84,6 +88,30 @@ class QrCameraC2 implements QrCamera {
     @Override
     public int getHeight() {
         return size.getHeight();
+    }
+
+    @Override
+    public void toggleLight() {
+        if (manager != null && cameraId != null) {
+            isLighting = !isLighting;
+            try {
+                manager.setTorchMode(cameraId, isLighting);
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void lightOff() {
+        if (manager != null && cameraId != null) {
+            isLighting = false;
+            try {
+                manager.setTorchMode(cameraId, false);
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -128,6 +156,7 @@ class QrCameraC2 implements QrCamera {
             throw new RuntimeException("Unable to get camera manager.");
         }
 
+        this.manager = manager;
         String cameraId = null;
         try {
             String[] cameraIdList = manager.getCameraIdList();
@@ -136,6 +165,7 @@ class QrCameraC2 implements QrCamera {
                 Integer integer = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
                 if (integer != null && integer == LENS_FACING_BACK) {
                     cameraId = id;
+                    this.cameraId = id;
                     break;
                 }
             }

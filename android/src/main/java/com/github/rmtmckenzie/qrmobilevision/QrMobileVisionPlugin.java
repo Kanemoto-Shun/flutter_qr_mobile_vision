@@ -45,6 +45,7 @@ public class QrMobileVisionPlugin implements MethodCallHandler, QrReaderCallback
     private boolean permissionDenied;
     private ReadingInstance readingInstance;
     private FlutterPluginBinding flutterPluginBinding;
+    private QrReader mReader;
 
     /**
      * Plugin registration.
@@ -173,11 +174,13 @@ public class QrMobileVisionPlugin implements MethodCallHandler, QrReaderCallback
                     QrReader reader = new QrReader(targetWidth, targetHeight, activity, options,
                         this, this, textureEntry.surfaceTexture());
 
+
                     readingInstance = new ReadingInstance(reader, textureEntry, result);
                     try {
                         reader.start(
                             lastHeartbeatTimeout == null ? 0 : lastHeartbeatTimeout
                         );
+                        mReader = reader;
                     } catch (IOException e) {
                         e.printStackTrace();
                         result.error("IOException", "Error starting camera because of IOException: " + e.getLocalizedMessage(), null);
@@ -202,6 +205,20 @@ public class QrMobileVisionPlugin implements MethodCallHandler, QrReaderCallback
             case "heartbeat": {
                 if (readingInstance != null) {
                     readingInstance.reader.heartBeat();
+                }
+                result.success(null);
+                break;
+            }
+            case "setLight": {
+                if (readingInstance != null) {
+                    mReader.toggleFlash();
+                }
+                result.success(null);
+                break;
+            }
+            case "lightOff": {
+                if (readingInstance != null) {
+                    mReader.lightOff();
                 }
                 result.success(null);
                 break;

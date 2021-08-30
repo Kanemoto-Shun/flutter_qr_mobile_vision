@@ -9,6 +9,8 @@ import android.graphics.SurfaceTexture;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
 
 import java.io.IOException;
@@ -45,6 +47,14 @@ class QrReader {
         } else {
             continueStarting(heartBeatTimeout);
         }
+    }
+
+    void toggleFlash() {
+        qrCamera.toggleLight();
+    }
+
+    void lightOff()  {
+        qrCamera.lightOff();
     }
 
     private void continueStarting(int heartBeatTimeout) throws IOException {

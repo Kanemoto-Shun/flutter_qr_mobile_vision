@@ -178,6 +178,16 @@ class QrCameraC1 implements QrCamera {
     }
 
     @Override
+    public void toggleLight() {
+
+    }
+
+    @Override
+    public void lightOff() {
+
+    }
+
+    @Override
     public int getOrientation() {
         return (info.orientation + 270) % 360;
     }
