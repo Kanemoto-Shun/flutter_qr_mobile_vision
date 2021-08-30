@@ -150,13 +150,12 @@ class QrCameraC2 implements QrCamera {
 
     @Override
     public void start() throws QrReader.Exception {
-        CameraManager manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
+        manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
 
         if (manager == null) {
             throw new RuntimeException("Unable to get camera manager.");
         }
 
-        this.manager = manager;
         String cameraId = null;
         try {
             String[] cameraIdList = manager.getCameraIdList();
@@ -179,7 +178,6 @@ class QrCameraC2 implements QrCamera {
         }
 
         try {
-            manager.setTorchMode(cameraId, true);
             cameraCharacteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             Integer sensorOrientationInteger = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
