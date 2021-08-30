@@ -16,6 +16,8 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.Build;
+import android.os.Handler;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -154,6 +156,15 @@ class QrCameraC2 implements QrCamera {
 
         if (manager == null) {
             throw new RuntimeException("Unable to get camera manager.");
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            manager.registerTorchCallback(new CameraManager.TorchCallback() {
+                @Override
+                public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
+                    super.onTorchModeChanged(cameraId, enabled);
+                }
+            }, new Handler());
         }
 
         String cameraId = null;
