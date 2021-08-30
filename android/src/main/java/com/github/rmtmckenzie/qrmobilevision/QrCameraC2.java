@@ -2,6 +2,7 @@ package com.github.rmtmckenzie.qrmobilevision;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
@@ -153,7 +154,8 @@ class QrCameraC2 implements QrCamera {
     @Override
     public void start() throws QrReader.Exception {
         manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
-
+        context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        
         if (manager == null) {
             throw new RuntimeException("Unable to get camera manager.");
         }
