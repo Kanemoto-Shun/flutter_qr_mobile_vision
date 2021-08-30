@@ -98,6 +98,7 @@ class QrCameraC2 implements QrCamera {
     public void toggleLight() {
         if (manager != null && cameraId != null) {
             isLighting = !isLighting;
+            texture.release();
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     manager.setTorchMode(cameraId, isLighting);
