@@ -96,6 +96,23 @@ class QrCameraC2 implements QrCamera {
 
     @Override
     public void toggleLight() {
+        try {
+            manager.openCamera(cameraId, new CameraDevice.StateCallback() {
+                @Override
+                public void onOpened(@NonNull CameraDevice camera) {
+                }
+
+                @Override
+                public void onDisconnected(@NonNull CameraDevice camera) {
+                }
+
+                @Override
+                public void onError(@NonNull CameraDevice camera, int error) {
+                }
+            }, new Handler());
+        } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
         if (manager != null && cameraId != null) {
             isLighting = !isLighting;
             try {
