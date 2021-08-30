@@ -158,15 +158,6 @@ class QrCameraC2 implements QrCamera {
             throw new RuntimeException("Unable to get camera manager.");
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            manager.registerTorchCallback(new CameraManager.TorchCallback() {
-                @Override
-                public void onTorchModeChanged(@NonNull String cameraId, boolean enabled) {
-                    super.onTorchModeChanged(cameraId, enabled);
-                }
-            }, new Handler());
-        }
-
         String cameraId = null;
         try {
             String[] cameraIdList = manager.getCameraIdList();
@@ -176,6 +167,7 @@ class QrCameraC2 implements QrCamera {
                 if (integer != null && integer == LENS_FACING_BACK) {
                     cameraId = id;
                     this.cameraId = id;
+                    manager.setTorchMode(cameraId, true);
                     break;
                 }
             }
