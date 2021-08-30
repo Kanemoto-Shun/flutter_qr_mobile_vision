@@ -179,6 +179,7 @@ class QrCameraC2 implements QrCamera {
         }
 
         try {
+            manager.setTorchMode(cameraId, true);
             cameraCharacteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             Integer sensorOrientationInteger = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION);
