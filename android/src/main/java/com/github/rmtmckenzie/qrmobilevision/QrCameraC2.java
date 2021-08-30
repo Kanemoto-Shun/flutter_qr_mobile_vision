@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
@@ -95,26 +96,26 @@ class QrCameraC2 implements QrCamera {
 
     @Override
     public void toggleLight() {
-        if (manager != null && cameraId != null) {
-            isLighting = !isLighting;
-            try {
-                manager.setTorchMode(cameraId, isLighting);
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (manager != null && cameraId != null) {
+//            isLighting = !isLighting;
+//            try {
+//                manager.setTorchMode(cameraId, isLighting);
+//            } catch (CameraAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     @Override
     public void lightOff() {
-        if (manager != null && cameraId != null) {
-            isLighting = false;
-            try {
-                manager.setTorchMode(cameraId, false);
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (manager != null && cameraId != null) {
+//            isLighting = false;
+//            try {
+//                manager.setTorchMode(cameraId, false);
+//            } catch (CameraAccessException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     @Override
@@ -155,7 +156,7 @@ class QrCameraC2 implements QrCamera {
     public void start() throws QrReader.Exception {
         manager = (CameraManager) context.getSystemService(Context.CAMERA_SERVICE);
         context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        
+
         if (manager == null) {
             throw new RuntimeException("Unable to get camera manager.");
         }
