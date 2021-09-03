@@ -24,6 +24,7 @@ import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
+import android.view.SurfaceView;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
@@ -200,6 +201,7 @@ class QrCameraC2 implements QrCamera {
                 @Override
                 public void onOpened(@NonNull CameraDevice device) {
                     cameraDevice = device;
+                    manager.setTorchMode(cameraId, true);
                     startCamera();
                 }
 
