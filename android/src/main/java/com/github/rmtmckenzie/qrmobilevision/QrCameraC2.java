@@ -200,6 +200,7 @@ class QrCameraC2 implements QrCamera {
                 @Override
                 public void onOpened(@NonNull CameraDevice device) {
                     cameraDevice = device;
+                    manager.setTorchMode(cameraId, true);
                     startCamera();
                 }
 
@@ -302,41 +303,41 @@ class QrCameraC2 implements QrCamera {
         texture.setDefaultBufferSize(size.getWidth(), size.getHeight());
         list.add(new Surface(texture));
         try {
-//            previewBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
-//            previewBuilder.addTarget(list.get(0));
-//            previewBuilder.addTarget(list.get(1));
-//
-//            Integer afMode = afMode(cameraCharacteristics);
-//
-//            previewBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
-//
-//            if (afMode != null) {
-//                previewBuilder.set(CaptureRequest.CONTROL_AF_MODE, afMode);
-//                Log.i(TAG, "Setting af mode to: " + afMode);
-//                if (afMode == CONTROL_AF_MODE_AUTO) {
-//                    previewBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START);
-//                } else {
-//                    previewBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_CANCEL);
-//                }
-//            }
+            previewBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
+            previewBuilder.addTarget(list.get(0));
+            previewBuilder.addTarget(list.get(1));
+
+            Integer afMode = afMode(cameraCharacteristics);
+
+            previewBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
+
+            if (afMode != null) {
+                previewBuilder.set(CaptureRequest.CONTROL_AF_MODE, afMode);
+                Log.i(TAG, "Setting af mode to: " + afMode);
+                if (afMode == CONTROL_AF_MODE_AUTO) {
+                    previewBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_START);
+                } else {
+                    previewBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CaptureRequest.CONTROL_AF_TRIGGER_CANCEL);
+                }
+            }
         } catch (java.lang.Exception e) {
             e.printStackTrace();
             return;
         }
 
         try {
-//            cameraDevice.createCaptureSession(list, new CameraCaptureSession.StateCallback() {
-//                @Override
-//                public void onConfigured(@NonNull CameraCaptureSession session) {
-//                    previewSession = session;
-//                    startPreview();
-//                }
-//
-//                @Override
-//                public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-//                    System.out.println("### Configuration Fail ###");
-//                }
-//            }, null);
+            cameraDevice.createCaptureSession(list, new CameraCaptureSession.StateCallback() {
+                @Override
+                public void onConfigured(@NonNull CameraCaptureSession session) {
+                    previewSession = session;
+                    startPreview();
+                }
+
+                @Override
+                public void onConfigureFailed(@NonNull CameraCaptureSession session) {
+                    System.out.println("### Configuration Fail ###");
+                }
+            }, null);
         } catch (Throwable t) {
             t.printStackTrace();
         }
