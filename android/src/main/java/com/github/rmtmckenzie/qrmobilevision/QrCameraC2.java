@@ -175,7 +175,6 @@ class QrCameraC2 implements QrCamera {
                 if (integer != null && integer == LENS_FACING_BACK) {
                     cameraId = id;
                     this.cameraId = id;
-                    manager.setTorchMode(cameraId, true);
                     break;
                 }
             }
@@ -326,18 +325,18 @@ class QrCameraC2 implements QrCamera {
         }
 
         try {
-            cameraDevice.createCaptureSession(list, new CameraCaptureSession.StateCallback() {
-                @Override
-                public void onConfigured(@NonNull CameraCaptureSession session) {
-                    previewSession = session;
-                    startPreview();
-                }
-
-                @Override
-                public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-                    System.out.println("### Configuration Fail ###");
-                }
-            }, null);
+//            cameraDevice.createCaptureSession(list, new CameraCaptureSession.StateCallback() {
+//                @Override
+//                public void onConfigured(@NonNull CameraCaptureSession session) {
+//                    previewSession = session;
+//                    startPreview();
+//                }
+//
+//                @Override
+//                public void onConfigureFailed(@NonNull CameraCaptureSession session) {
+//                    System.out.println("### Configuration Fail ###");
+//                }
+//            }, null);
         } catch (Throwable t) {
             t.printStackTrace();
         }
