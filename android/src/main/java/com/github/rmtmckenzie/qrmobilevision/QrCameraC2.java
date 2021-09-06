@@ -201,7 +201,6 @@ class QrCameraC2 implements QrCamera {
                 @Override
                 public void onOpened(@NonNull CameraDevice device) {
                     cameraDevice = device;
-                    manager.setTorchMode(cameraId, true);
                     startCamera();
                 }
 
